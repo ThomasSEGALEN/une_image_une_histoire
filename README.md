@@ -5,7 +5,8 @@
 1. [Ressources](README.md#1-ressources-)  
 2. [Projet](README.md#2-projet-)  
    a. [Contexte](README.md#a-contexte-)  
-   b. [Dates clés](README.md#b-date-cles-)  
+   b. [Dates](README.md#b-dates-)  
+   c. [Étudiants](README.md#c-etudiants-)
 3. [Environnement](README.md#3-environnement-)  
   
   
