@@ -6,7 +6,7 @@
 2. [Projet](README.md#2-projet-)  
    a. [Contexte](README.md#a-contexte-)  
    b. [Dates](README.md#b-dates-)  
-   c. [Étudiants](README.md#c-etudiants-)
+   c. [Étudiants](README.md#c-étudiants-)  
 3. [Environnement](README.md#3-environnement-)  
   
   
