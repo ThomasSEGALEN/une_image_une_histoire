@@ -18,11 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -30,15 +30,21 @@ Route::middleware('auth')->group(function () {
     Route::group([
         'prefix' => 'admin',
         'middleware' => 'is_admin',
-        'as' => 'admin',
+        'as' => 'admin.',
     ], function () {
         Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
         Route::get('/users/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('users.create');
         Route::post('/users', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
-        Route::get('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('users.show');
+        // Route::get('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('users.show');
         Route::get('/users/{user}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('users.edit');
         Route::patch('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
         Route::delete('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
+    });
+
+    Route::group([
+        'prefix' => 'user',
+    ], function () {
+        Route::get('/users/{user}', [App\Http\Controllers\User\UserController::class, 'show'])->name('users.show');
     });
 });
 

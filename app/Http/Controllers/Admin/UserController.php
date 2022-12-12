@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,7 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = User::paginate(10);
+
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -25,7 +29,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('users_create');
+
+        $roles = Role::all();
+
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -36,7 +44,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('users_create');
+
+        $mailAlreadyUsed = User::where('email', $request->email)->first();
+
+        if ($mailAlreadyUsed) return back()->with('userCreateFailure', 'Cette adresse mail est déjà utilisée');
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role_id' => $request->role,
+        ]);
+
+        return back()->with('userCreateSuccess', "L'utilisateur a été créé avec succès");
     }
 
     /**
@@ -58,7 +79,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $this->authorize('users_edit');
+
+        return view('admin.users.edit');
     }
 
     /**
@@ -70,7 +93,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $this->authorize('users_edit');
+
+        return back();
     }
 
     /**
@@ -81,6 +106,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $this->authorize('users_destroy');
+
+        return back();
     }
 }
