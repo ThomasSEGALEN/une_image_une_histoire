@@ -24,16 +24,10 @@ class UserSeeder extends Seeder
                 'role_id' => 1,
             ],
             [
-                'name' => 'editor',
-                'email' => 'editor@uiuh.com',
-                'password' => Hash::make('editor'),
-                'role_id' => 2,
-            ],
-            [
                 'name' => 'admin',
                 'email' => 'admin@uiuh.com',
                 'password' => Hash::make('admin'),
-                'role_id' => 3,
+                'role_id' => 2,
             ],
         ]);
     }
