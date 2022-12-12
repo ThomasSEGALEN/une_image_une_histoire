@@ -79,7 +79,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $this->authorize('users_edit');
+        $this->authorize('users_update');
 
         return view('admin.users.edit');
     }
@@ -93,7 +93,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $this->authorize('users_edit');
+        $this->authorize('users_update');
 
         return back();
     }
@@ -106,7 +106,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->authorize('users_destroy');
+        $this->authorize('users_delete');
 
         return back();
     }

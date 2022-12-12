@@ -31,10 +31,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('users_create', function (User $user) {
             return $user->role_id === \App\Models\Role::ADMIN;
         });
-        Gate::define('users_edit', function (User $user) {
+        Gate::define('users_update', function (User $user) {
             return $user->role_id === \App\Models\Role::ADMIN;
         });
-        Gate::define('users_destory', function (User $user) {
+        Gate::define('users_delete', function (User $user) {
             return $user->role_id === \App\Models\Role::ADMIN;
         });
     }
