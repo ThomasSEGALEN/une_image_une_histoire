@@ -20,7 +20,7 @@ return new class extends Migration
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             // $table->rememberToken();
-            $table->foreignId('role_id')->constrained('roles');
+            $table->foreignId('role_id')->default(1)->constrained('roles');
             $table->timestamps();
         });
     }
