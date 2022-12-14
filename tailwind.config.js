@@ -13,7 +13,14 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                subtitle: ['Subtitle', 'sans-serif'],
+                text: ['Text', 'sans-serif'],
             },
+            colors: {
+                dark: '#343434',
+                gold: '#e6b31e',
+                light: '#fcfaf1',
+            }
         },
     },
     plugins: [
