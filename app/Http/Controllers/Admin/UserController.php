@@ -51,7 +51,8 @@ class UserController extends Controller
         if ($mailAlreadyUsed) return back()->with('userCreateFailure', 'Cette adresse mail est déjà utilisée');
 
         User::create([
-            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'firstname' => $request->firstname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => $request->role,
@@ -81,7 +82,9 @@ class UserController extends Controller
     {
         $this->authorize('users_update');
 
-        return view('admin.users.edit');
+        $roles = Role::all();
+
+        return view('admin.users.edit', compact('roles'));
     }
 
     /**
