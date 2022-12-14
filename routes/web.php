@@ -18,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', function () {
     return view('home');
 })->name('home');
 Route::get('/services', function () {
@@ -31,10 +27,14 @@ Route::get('/galery', function () {
     return "zzz";
 })->name('galery');
 
+Route::get('/terms-of-use', function () {
+    return "Terms of use";
+})->name('termsOfUse');
+
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/admin', function () {
         return view('dashboard');
     })->name('dashboard');
 
