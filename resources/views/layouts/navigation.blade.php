@@ -2,11 +2,6 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                {{-- <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div> --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Accueil') }}
@@ -23,14 +18,13 @@
                     </x-nav-link>
                 </div>
             </div>
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="hidden mr-10 sm:flex sm:items-center sm:ml-6">
                 @if (auth()->user())
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
-
+                            <div>{{ Auth::user()->firstname }}</div>
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20">
@@ -43,27 +37,29 @@
                     </x-slot>
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Profil') }}
                         </x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Se déconnecter') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
                 </x-dropdown>
                 @else
-                <div class="hidden space-x-8 mr-10 sm:-my-px sm:ml-10 sm:flex">
-                    @auth
-                    <a href="{{ url('/dashboard') }}"
-                        class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
-                    @else
-                    <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-                    <a href="{{ route('register') }}"
-                        class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                    @endauth
+                <div class="hidden space-x-4 sm:flex">
+                    <a href="{{ route('login') }}">
+                        <x-secondary-button>
+                            {{ __('Connexion') }}
+                        </x-secondary-button>
+                    </a>
+                    <a href="{{ route('register') }}">
+                        <x-primary-button>
+                            {{ __('Inscription') }}
+                        </x-primary-button>
+                    </a>
                 </div>
                 @endif
             </div>
@@ -92,26 +88,37 @@
                 {{ __('Prestations') }}
             </x-responsive-nav-link>
         </div>
-        <div class="pt-2">
+        <div class="py-2">
             <x-responsive-nav-link :href="route('galery')" :active="request()->routeIs('galery')">
                 {{ __('Galerie') }}
             </x-responsive-nav-link>
         </div>
-        @if (auth()->user())
+        @if (!auth()->user())
+        <div class="py-2 border-t border-gray-200">
+            <x-responsive-nav-link :href="route('login')">
+                {{ __('Connexion') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="py-2">
+            <x-responsive-nav-link :href=" route('register')">
+                {{ __('Inscription') }}
+            </x-responsive-nav-link>
+        </div>
+        @else
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-base text-gray-800">{{ Auth::user()->firstname }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('Profil') }}
                 </x-responsive-nav-link>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Se déconnecter') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
