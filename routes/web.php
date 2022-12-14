@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +21,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
+Route::get('/services', function () {
+    return "zzz";
+})->name('services');
+Route::get('/galery', function () {
+    return "zzz";
+})->name('galery');
+
+Route::post('/contact', [ContactController::class, 'store'])->name('contact');
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -32,19 +47,19 @@ Route::middleware('auth')->group(function () {
         'middleware' => 'is_admin',
         'as' => 'admin.',
     ], function () {
-        Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
-        Route::get('/users/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('users.create');
-        Route::post('/users', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
-        // Route::get('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('users.show');
-        Route::get('/users/{user}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('users.edit');
-        Route::patch('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
-        Route::delete('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
+        Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+        Route::get('/users/create', [AdminUserController::class, 'create'])->name('users.create');
+        Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
+        // Route::get('/users/{user}', [AdminUserController::class, 'show'])->name('users.show');
+        Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
+        Route::patch('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
     });
 
     Route::group([
         'prefix' => 'user',
     ], function () {
-        Route::get('/users/{user}', [App\Http\Controllers\User\UserController::class, 'show'])->name('users.show');
+        Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
     });
 });
 
