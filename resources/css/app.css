@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Subtitle";
+    src: url("/public/fonts/Karma-Light.ttf");
+}
+@font-face {
+    font-family: "Text";
+    src: url("/public/fonts/Montserrat-Regular.ttf");
+}
