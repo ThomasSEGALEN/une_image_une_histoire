@@ -2,6 +2,14 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
+                @if (auth()->user()->role_id)
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')"
+                        :active="request()->routeIs('dashboard') || request()->routeIs('admin.*')">
+                        {{ __('Tableau de bord') }}
+                    </x-nav-link>
+                </div>
+                @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Accueil') }}
@@ -36,7 +44,7 @@
                         </button>
                     </x-slot>
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('profile.show')">
                             {{ __('Profil') }}
                         </x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
@@ -78,6 +86,14 @@
         </div>
     </div>
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+        @if (auth()->user()->role_id)
+        <div class="pt-2">
+            <x-responsive-nav-link :href="route('dashboard')"
+                :active="request()->routeIs('dashboard') || request()->routeIs('admin.*')">
+                {{ __('Tableau de bord') }}
+            </x-responsive-nav-link>
+        </div>
+        @endif
         <div class="pt-2">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Accueil') }}
@@ -111,7 +127,7 @@
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('profile.show')">
                     {{ __('Profil') }}
                 </x-responsive-nav-link>
                 <form method="POST" action="{{ route('logout') }}">
