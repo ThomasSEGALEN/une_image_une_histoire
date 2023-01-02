@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,6 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('users_manage');
+
         $users = User::paginate(10);
 
         return view('admin.users.index', compact('users'));
@@ -29,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $this->authorize('users_create');
+        $this->authorize('users_manage');
 
         $roles = Role::all();
 
@@ -42,13 +46,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        $this->authorize('users_create');
+        $this->authorize('users_manage');
 
         $mailAlreadyUsed = User::where('email', $request->email)->first();
 
-        if ($mailAlreadyUsed) return back()->with('userCreateFailure', 'Cette adresse mail est déjà utilisée');
+        if ($mailAlreadyUsed) return back()->with('status', 'Cette adresse mail est déjà utilisée');
 
         User::create([
             'lastname' => $request->lastname,
@@ -58,7 +62,7 @@ class UserController extends Controller
             'role_id' => $request->role,
         ]);
 
-        return back()->with('userCreateSuccess', "L'utilisateur a été créé avec succès");
+        return back()->with('status', "L'utilisateur a été créé");
     }
 
     /**
@@ -80,11 +84,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $this->authorize('users_update');
+        $this->authorize('users_manage');
 
         $roles = Role::all();
 
-        return view('admin.users.edit', compact('roles'));
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -94,11 +98,25 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        $this->authorize('users_update');
+        $this->authorize('users_manage');
 
-        return back();
+        if ($request->email !== $user->email) {
+            $mailAlreadyUsed = User::where('email', $request->email)->first();
+
+            if ($mailAlreadyUsed) return back()->with('status', 'Cette adresse mail est déjà utilisée');
+        }
+
+        $user->update([
+            'lastname' => $request->lastname,
+            'firstname' => $request->firstname,
+            'email' => $request->email,
+            'password' => Hash::make($request->password || $user->password),
+            'role_id' => $request->role,
+        ]);
+
+        return back()->with('status', "L'utilisateur a été modifié");
     }
 
     /**
@@ -109,8 +127,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->authorize('users_delete');
+        $this->authorize('users_manage');
 
-        return back();
+        $user->delete();
+
+        return back()->with('status', "L'utilisateur a été supprimé");
     }
 }
