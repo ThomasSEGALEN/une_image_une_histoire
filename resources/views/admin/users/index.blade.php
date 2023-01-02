@@ -7,11 +7,16 @@
     <div class="my-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 overflow-auto">
-                <table class="min-w-full text-center">
+                <a href="{{ route('admin.users.create') }}">
+                    <x-primary-button>
+                        {{ __('Créer un utilisateur') }}
+                    </x-primary-button>
+                </a>
+                <x-auth-session-status class="my-4" :status="session('status')" />
+                <table class="min-w-full text-center my-6">
                     <thead class="border-b bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-4">ID</th>
-                            <th scope="col" class="px-6 py-4">Name</th>
                             <th scope="col" class="px-6 py-4">Email</th>
                             <th scope="col" class="px-6 py-4">Rôle</th>
                             <th scope="col">Actions</th>
@@ -21,7 +26,6 @@
                     <tbody>
                         <tr class="bg-white border-b">
                             <th scope="row" class="px-6 py-4 whitespace-nowrap">{{ $user->id }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $user->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $user->role->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap flex justify-center">
@@ -51,23 +55,20 @@
         </div>
     </div>
     <x-modal name="user-delete" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+        <form method="post" action="{{ route('admin.users.destroy', $user) }}" class="p-6">
             @csrf
             @method('DELETE')
-            <h2 class="text-lg font-medium text-gray-900">Are you sure your want to
-                delete your account?</h2>
+            <h2 class="text-lg font-medium text-gray-900">Êtes-vous sûr de vouloir supprimer ce compte ?</h2>
             <p class="mt-1 text-sm text-gray-600">
-                {{ __('Once your account is deleted, all of its resources and data will
-                be permanently deleted. Please enter your password to confirm you would
-                like to permanently delete your account.') }}
+                {{ __('Une fois que ce compte est supprimé, toutes ses données seront définitivement
+                supprimées.') }}
             </p>
             <div class="mt-6 flex justify-end">
                 <x-secondary-button x-on:click="$dispatch('close')">
-                    {{ __('Cancel') }}
+                    {{ __('Annuler') }}
                 </x-secondary-button>
-
                 <x-danger-button class="ml-3">
-                    {{ __('Delete Account') }}
+                    {{ __('Supprimer') }}
                 </x-danger-button>
             </div>
         </form>
