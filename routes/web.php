@@ -38,26 +38,29 @@ Route::get('/terms-of-use', function () {
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/admin', function () {
+    Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::group([
-        'prefix' => 'admin',
+        'prefix' => 'dashboard',
         'middleware' => 'is_admin',
         'as' => 'admin.',
     ], function () {
+        //User CRUD
         Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
         Route::get('/users/create', [AdminUserController::class, 'create'])->name('users.create');
         Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
-        // Route::get('/users/{user}', [AdminUserController::class, 'show'])->name('users.show');
         Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
         Route::patch('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
         Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+
+        //Galery CRUD
+        //TODO
     });
 
     Route::group([
