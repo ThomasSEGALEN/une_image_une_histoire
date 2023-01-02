@@ -5,7 +5,6 @@
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
-        <x-auth-session-status class="mb-4" :status="session('status')" />
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <h1 class="flex justify-center text-xl font-bold text-dark">Connexion</h1>
@@ -20,6 +19,7 @@
                 <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
                     autocomplete="current-password" />
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <x-input-error :messages="$errors->get('login')" class="mt-2" />
             </div>
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
