@@ -25,15 +25,15 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');
 Route::get('/services', function () {
-    return "zzz";
+    return view('home');
 })->name('services');
 Route::get('/galery', function () {
-    return "zzz";
+    return view('home');
 })->name('galery');
 
 Route::get('/terms-of-use', function () {
     return "Terms of use";
-})->name('termsOfUse');
+})->name('tos');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');
 
@@ -63,11 +63,11 @@ Route::middleware('auth')->group(function () {
         //TODO
     });
 
-    Route::group([
-        'prefix' => 'user',
-    ], function () {
-        Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-    });
+    // Route::group([
+    //     'prefix' => 'user',
+    // ], function () {
+    //     Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    // });
 });
 
 require __DIR__ . '/auth.php';
