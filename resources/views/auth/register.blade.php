@@ -46,7 +46,7 @@
                         <x-checkbox-input id="terms_of_use" required />
                         <span class="text-sm text-gray-600 hover:text-gray-900 rounded-md ml-2">
                             J'accepte les
-                            <a class=" underline hover:cursor-pointer" href="{{ route('termsOfUse') }}">{{
+                            <a class=" underline hover:cursor-pointer" href="{{ route('tos') }}">{{
                                 __("Conditions Générales d'Utilisation") }}</a></span>
                     </label>
                 </div>
