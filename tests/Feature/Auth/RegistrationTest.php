@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -19,15 +20,16 @@ class RegistrationTest extends TestCase
 
     // public function test_new_users_can_register()
     // {
-    //     $response = $this->withHeaders(['accept' => 'application/json'])->post('/register', [
+    //     $response = $this->post('/register', [
     //         'lastname' => 'Test',
     //         'firstname' => 'User',
-    //         'email' => 'test@example.com',
+    //         'email' => 'test@mail.com',
     //         'password' => 'password',
     //         'password_confirmation' => 'password',
     //     ]);
 
     //     $this->assertAuthenticated();
+
     //     $response->assertRedirect(RouteServiceProvider::HOME);
     // }
 }
