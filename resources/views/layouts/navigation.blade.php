@@ -2,10 +2,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                @if (auth()->user()->role_id)
+                @if (Auth::check() && Auth::user()->role_id === App\Models\Role::ADMIN)
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')"
-                        :active="request()->routeIs('dashboard') || request()->routeIs('admin.*')">
+                        :active="request()->routeIs('dashboard') || request()->routeIs('dashboard.*')">
                         {{ __('Tableau de bord') }}
                     </x-nav-link>
                 </div>
@@ -27,12 +27,12 @@
                 </div>
             </div>
             <div class="hidden mr-10 sm:flex sm:items-center sm:ml-6">
-                @if (auth()->user())
+                @if (Auth::check())
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->firstname }}</div>
+                            <div>{{ ucfirst(Auth::user()->firstname) }}</div>
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20">
@@ -86,10 +86,10 @@
         </div>
     </div>
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        @if (auth()->user()->role_id)
+        @if (Auth::check() && Auth::user()->role_id)
         <div class="pt-2">
             <x-responsive-nav-link :href="route('dashboard')"
-                :active="request()->routeIs('dashboard') || request()->routeIs('admin.*')">
+                :active="request()->routeIs('dashboard') || request()->routeIs('dashboard.*')">
                 {{ __('Tableau de bord') }}
             </x-responsive-nav-link>
         </div>
@@ -109,7 +109,7 @@
                 {{ __('Galerie') }}
             </x-responsive-nav-link>
         </div>
-        @if (!auth()->user())
+        @if (!Auth::check())
         <div class="py-2 border-t border-gray-200">
             <x-responsive-nav-link :href="route('login')">
                 {{ __('Connexion') }}
