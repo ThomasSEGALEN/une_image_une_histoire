@@ -9,11 +9,15 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     You're logged in as
-                    @if (\App\Models\Role::ADMIN === auth()->user()->role_id)
+                    @if (Auth::user()->role_id === \App\Models\Role::ADMIN)
                     Admin
                     @else
                     User
                     @endif
+                    <div>
+                        <a href="{{ route('dashboard.users.index') }}">Utilisateurs</a>
+                        <a href="{{ route('dashboard.pictures.index') }}">Photos</a>
+                    </div>
                 </div>
             </div>
         </div>
