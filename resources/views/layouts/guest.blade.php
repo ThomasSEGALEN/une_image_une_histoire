@@ -16,9 +16,16 @@
 </head>
 
 <body>
-    <div class="font-text text-gray-900 antialiased">
+    <div class="font-text text-gray-900 antialiased select-none">
         {{ $slot }}
     </div>
 </body>
 
 </html>
+
+<style>
+    ::selection {
+        color: black;
+        background: bg-gold;
+    }
+</style>
