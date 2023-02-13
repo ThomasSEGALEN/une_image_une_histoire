@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\User\PictureController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\User\UserController;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,15 +19,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Redirect::to('home');
 });
 
 Route::get('/home', function () {
     return view('home');
 })->name('home');
+
 Route::get('/services', function () {
     return view('home');
 })->name('services');
+
 Route::get('/galery', function () {
     return view('home');
 })->name('galery');
@@ -38,36 +41,33 @@ Route::get('/terms-of-use', function () {
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     Route::group([
         'prefix' => 'dashboard',
-        'middleware' => 'is_admin',
-        'as' => 'admin.',
+        'as' => 'dashboard.',
     ], function () {
-        //User CRUD
-        Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
-        Route::get('/users/create', [AdminUserController::class, 'create'])->name('users.create');
-        Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
-        Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
-        Route::patch('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
-        Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
-        //Galery CRUD
-        //TODO
+        Route::get('/pictures', [PictureController::class, 'index'])->name('pictures.index');
+        Route::get('/pictures/create', [PictureController::class, 'create'])->name('pictures.create');
+        Route::post('/pictures', [PictureController::class, 'store'])->name('pictures.store');
+        Route::get('/pictures/{picture}/edit', [PictureController::class, 'edit'])->name('pictures.edit');
+        Route::patch('/pictures/{picture}', [PictureController::class, 'update'])->name('pictures.update');
+        Route::delete('/pictures/{picture}', [PictureController::class, 'destroy'])->name('pictures.destroy');
     });
-
-    // Route::group([
-    //     'prefix' => 'user',
-    // ], function () {
-    //     Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-    // });
 });
 
 require __DIR__ . '/auth.php';
