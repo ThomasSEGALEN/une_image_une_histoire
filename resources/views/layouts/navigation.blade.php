@@ -3,14 +3,14 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 @if (Auth::check() && Auth::user()->role_id === App\Models\Role::ADMIN)
-                <div class="hidden space-x-8 sm:-my-px  sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:mr-10 sm:flex">
                     <x-nav-link :href="route('dashboard')"
                         :active="request()->routeIs('dashboard') || request()->routeIs('dashboard.*')">
                         {{ __('Tableau de bord') }}
                     </x-nav-link>
                 </div>
                 @endif
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Accueil') }}
                     </x-nav-link>
