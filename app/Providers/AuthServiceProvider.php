@@ -31,5 +31,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('users_manage', function (User $user) {
             return $user->role_id === \App\Models\Role::ADMIN;
         });
+
+        Gate::define('pictures_manage', function (User $user) {
+            return ($user->role_id === \App\Models\Role::ADMIN);
+        });
     }
 }
