@@ -20,7 +20,7 @@ module.exports = {
                 dark: '#343434',
                 gold: '#e6b31e',
                 light: '#fcfaf1',
-            }
+            },
         },
     },
     plugins: [
