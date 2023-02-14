@@ -3,7 +3,7 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 @if (Auth::check() && Auth::user()->role_id === App\Models\Role::ADMIN)
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px  sm:flex">
                     <x-nav-link :href="route('dashboard')"
                         :active="request()->routeIs('dashboard') || request()->routeIs('dashboard.*')">
                         {{ __('Tableau de bord') }}
@@ -21,12 +21,12 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('galery')" :active="request()->routeIs('galery')">
+                    <x-nav-link :href="route('gallery')" :active="request()->routeIs('gallery')">
                         {{ __('Galerie') }}
                     </x-nav-link>
                 </div>
             </div>
-            <div class="hidden mr-10 sm:flex sm:items-center sm:ml-6">
+            <div class="hidden  sm:flex sm:items-center ">
                 @if (Auth::check())
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -105,7 +105,7 @@
             </x-responsive-nav-link>
         </div>
         <div class="py-2">
-            <x-responsive-nav-link :href="route('galery')" :active="request()->routeIs('galery')">
+            <x-responsive-nav-link :href="route('gallery')" :active="request()->routeIs('gallery')">
                 {{ __('Galerie') }}
             </x-responsive-nav-link>
         </div>

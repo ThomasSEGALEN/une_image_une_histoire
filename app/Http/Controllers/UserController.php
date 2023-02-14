@@ -17,11 +17,25 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('users_manage');
 
-        $users = User::paginate(10);
+        $users = User::when(
+            $request->input('search'),
+            fn ($query, $search) =>
+            $query
+                ->where('email', 'like', "%{$search}%")
+                ->orWhere('lastname', 'like', "%{$search}%")
+                ->orWhere('firstname', 'like', "%{$search}%")
+        )
+            ->paginate(25)
+            ->withQueryString();
+
+        // if (!$request->search || !$users->first()) {
+        //     $users = User::paginate(25);
+        //     $pagination = true;
+        // }
 
         return view('users.index', compact('users'));
     }
@@ -52,7 +66,7 @@ class UserController extends Controller
 
         $mailAlreadyUsed = User::where('email', $request->email)->first();
 
-        if ($mailAlreadyUsed) return back()->with('status', 'Cette adresse mail est déjà utilisée');
+        if ($mailAlreadyUsed) return back()->with('status', 'Cette adresse e-mail est déjà utilisée');
 
         User::create([
             'lastname' => $request->lastname,
@@ -105,7 +119,7 @@ class UserController extends Controller
         if ($request->email !== $user->email) {
             $mailAlreadyUsed = User::where('email', $request->email)->first();
 
-            if ($mailAlreadyUsed) return back()->with('status', 'Cette adresse mail est déjà utilisée');
+            if ($mailAlreadyUsed) return back()->with('status', 'Cette adresse e-mail est déjà utilisée');
         }
 
         $user->update([

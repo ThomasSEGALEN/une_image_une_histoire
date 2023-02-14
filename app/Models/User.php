@@ -37,6 +37,11 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function pictures()
+    {
+        return $this->hasMany(Picture::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);
