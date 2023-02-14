@@ -1,4 +1,10 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Accueil') }}
+        </h2>
+    </x-slot>
+
     {{-- Carousel --}}
     {{-- <div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
         <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
@@ -88,7 +94,7 @@
                             <textarea class=""></textarea>
                         </div> --}}
 
-                        {{-- <form method="POST" action="{{ route('contact') }}" class="flex flex-col">
+                        <form method="POST" action="{{ route('contact') }}" class="flex flex-col">
                             @csrf
                             <label for="email">Mail</label>
                             <input type="email" name="email" id="email" />
@@ -97,7 +103,7 @@
                             <label for="message">Message</label>
                             <textarea name="message" id="message" cols="30" rows="10"></textarea>
                             <button type="submit">Envoyer</button>
-                        </form> --}}
+                        </form>
 
                     </div>
                 </div>
