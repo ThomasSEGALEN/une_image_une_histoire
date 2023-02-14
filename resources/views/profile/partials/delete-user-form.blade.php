@@ -10,9 +10,9 @@
     <x-danger-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">{{ __('Supprimer')
         }}</x-danger-button>
     <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+        <form method="POST" action="{{ route('profile.destroy') }}" class="p-6">
             @csrf
-            @method('delete')
+            @method('DELETE')
             <h2 class="text-lg font-medium text-gray-900">Are you sure your want to delete your account?</h2>
             <p class="mt-1 text-sm text-gray-600">
                 {{ __('Une fois votre compte supprimé, toutes ses données seront définitivement effacées. Veuillez

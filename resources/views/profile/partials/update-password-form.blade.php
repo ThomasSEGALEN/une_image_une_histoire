@@ -7,9 +7,9 @@
             {{ __('Assurez-vous que votre compte utilise un mot de passe long et aléatoire pour rester sécurisé.') }}
         </p>
     </header>
-    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
+    <form method="POST" action="{{ route('password.update') }}" class="mt-6 space-y-6">
         @csrf
-        @method('put')
+        @method('PUT')
         <div>
             <x-input-label for="current_password" :value="__('Mot de passe actuel')" />
             <x-text-input id="current_password" name="current_password" type="password" class="mt-1 block w-full"
