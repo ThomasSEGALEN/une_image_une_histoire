@@ -17,6 +17,12 @@ class Picture extends Model
     protected $fillable = [
         'title',
         'description',
-        'path'
+        'path',
+        'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

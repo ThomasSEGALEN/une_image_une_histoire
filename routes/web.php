@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\User\PictureController;
+use App\Http\Controllers\PictureController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Redirect;
@@ -27,15 +27,15 @@ Route::get('/home', function () {
 })->name('home');
 
 Route::get('/services', function () {
-    return view('home');
+    //TODO
 })->name('services');
 
-Route::get('/galery', function () {
-    return view('home');
-})->name('galery');
+Route::get('/gallery', function () {
+    return view('gallery');
+})->name('gallery');
 
 Route::get('/terms-of-use', function () {
-    return "Terms of use";
+    //TODO
 })->name('tos');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');

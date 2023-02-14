@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PictureRequest;
 use App\Models\Picture;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,11 @@ class PictureController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('pictures_manage');
+
+        $pictures = Picture::paginate(12);
+
+        return view('pictures.index', compact('pictures'));
     }
 
     /**
@@ -24,7 +29,9 @@ class PictureController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('pictures_manage');
+
+        return view('pictures.create');
     }
 
     /**
@@ -33,9 +40,27 @@ class PictureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PictureRequest $request)
     {
-        //
+        $this->authorize('pictures_manage');
+
+        $titleAlreadyUsed = Picture::where('title', $request->title)->first();
+
+        if ($titleAlreadyUsed) return back()->with('error', 'Ce titre est déjà utilisé');
+
+        $file = $request->file('picture');
+        $fileName = "{$request->title}.{$file->extension()}";
+
+        Picture::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'path' => "pictures/" . $fileName,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        $file->storeAs('public/pictures', $fileName);
+
+        return back()->with('status', "L'image a été créée");
     }
 
     /**
@@ -57,7 +82,9 @@ class PictureController extends Controller
      */
     public function edit(Picture $picture)
     {
-        //
+        $this->authorize('pictures_manage');
+
+        return view('pictures.edit', compact('picture'));
     }
 
     /**
@@ -69,7 +96,25 @@ class PictureController extends Controller
      */
     public function update(Request $request, Picture $picture)
     {
-        //
+        $this->authorize('pictures_manage');
+
+        if ($request->title !== $picture->title) {
+            $titleAlreadyUsed = Picture::where('title', $request->title)->first();
+
+            if ($titleAlreadyUsed) return back()->with('error', 'Ce titre est déjà utilisé');
+        }
+
+        $file = $request->file('picture');
+        $fileName = "{$request->title}.{$file->extension()}";
+
+        $picture->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'path' => "pictures/" . $fileName,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        return back()->with('status', "L'image a été modifiée");
     }
 
     /**
@@ -80,6 +125,10 @@ class PictureController extends Controller
      */
     public function destroy(Picture $picture)
     {
-        //
+        $this->authorize('pictures_manage');
+
+        $picture->delete();
+
+        return back()->with('status', "L'image a été supprimée");
     }
 }

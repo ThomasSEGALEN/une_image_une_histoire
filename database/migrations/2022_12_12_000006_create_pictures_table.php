@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->string('description')->nullable();
             $table->string('path')->unique();
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
@@ -29,6 +30,9 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('pictures', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('user_id');
+        });
         Schema::dropIfExists('pictures');
     }
 };
