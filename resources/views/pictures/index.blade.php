@@ -86,10 +86,10 @@
                             @endforeach
                         </div>
                     </div>
+                    <div class="mt-8">{{ $pictures->links() }}</div>
                     @else
-                    <div class="my-4">Vous n'avez pas d'images dans votre galerie actuellement.</div>
+                    <div class="mt-4">Vous n'avez pas d'images dans votre galerie actuellement.</div>
                     @endif
-                    <div class="m-8">{{ $pictures->links() }}</div>
                 </div>
             </div>
         </div>
