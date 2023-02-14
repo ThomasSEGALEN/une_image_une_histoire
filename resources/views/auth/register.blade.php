@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="mt-4">
-                <x-input-label for="email" :value="__('Adresse mail')" />
+                <x-input-label for="email" :value="__('Adresse e-mail')" />
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                     required />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />

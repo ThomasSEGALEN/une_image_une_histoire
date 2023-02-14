@@ -9,7 +9,7 @@
             @csrf
             <h1 class="flex justify-center text-xl font-bold text-dark">Connexion</h1>
             <div class="mt-6">
-                <x-input-label for="email" :value="__('Adresse mail')" />
+                <x-input-label for="email" :value="__('Adresse e-mail')" />
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                     required autofocus />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
