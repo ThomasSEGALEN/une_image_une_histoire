@@ -23,6 +23,8 @@ class UserSeeder extends Seeder
                 'email' => 'user@uiuh.com',
                 'password' => Hash::make('user'),
                 'role_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'lastname' => 'admin',
@@ -30,6 +32,8 @@ class UserSeeder extends Seeder
                 'email' => 'admin@uiuh.com',
                 'password' => Hash::make('admin'),
                 'role_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

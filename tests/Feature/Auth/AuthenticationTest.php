@@ -21,6 +21,9 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_authenticate_using_the_login_screen()
     {
+        // $role = Role::factory()->create(['name' => 'User']);
+        // $user = User::factory()->create(['role_id' => $role->id]);
+
         $user = User::factory()
             ->for(Role::factory()->state([
                 'name' => 'User',

@@ -20,9 +20,9 @@ class PictureFactory extends Factory
         return [
             'title' => Str::random(10),
             'path' => "/pictures/" . Str::random(5),
+            'user_id' => 2,
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 2
         ];
     }
 }
