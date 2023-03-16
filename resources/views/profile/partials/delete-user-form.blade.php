@@ -13,7 +13,7 @@
         <form method="POST" action="{{ route('profile.destroy') }}" class="p-6">
             @csrf
             @method('DELETE')
-            <h2 class="text-lg font-medium text-gray-900">Are you sure your want to delete your account?</h2>
+            <h2 class="text-lg font-medium text-gray-900">Êtes-vous sûr de vouloir supprimer votre compte ?</h2>
             <p class="mt-1 text-sm text-gray-600">
                 {{ __('Une fois votre compte supprimé, toutes ses données seront définitivement effacées. Veuillez
                 entrer votre mot de passe pour confirmer que vous souhaitez supprimer définitivement votre compte..') }}

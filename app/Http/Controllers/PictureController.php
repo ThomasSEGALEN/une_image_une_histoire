@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PictureRequest;
 use App\Models\Picture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PictureController extends Controller
 {
@@ -71,7 +72,9 @@ class PictureController extends Controller
      */
     public function show(Picture $picture)
     {
-        //
+        $pictures = Picture::all();
+
+        return view('gallery', compact('pictures'));
     }
 
     /**
@@ -104,13 +107,22 @@ class PictureController extends Controller
             if ($titleAlreadyUsed) return back()->with('error', 'Ce titre est déjà utilisé');
         }
 
-        $file = $request->file('picture');
-        $fileName = "{$request->title}.{$file->extension()}";
+        $newPicture = $request->file('picture') ? true : false;
+        $fileName = "";
+
+        if ($newPicture) {
+            $file = $request->file('picture');
+            $fileName = "{$request->title}.{$file->extension()}";
+
+            if (Storage::exists("public/" . $picture->path)) Storage::delete("public/" . $picture->path);
+
+            $file->storeAs('public/pictures', $fileName);
+        }
 
         $picture->update([
             'title' => $request->title,
             'description' => $request->description,
-            'path' => "pictures/" . $fileName,
+            'path' => $newPicture ? "pictures/" . $fileName : $picture->path,
             'user_id' => auth()->user()->id,
         ]);
 
@@ -126,6 +138,8 @@ class PictureController extends Controller
     public function destroy(Picture $picture)
     {
         $this->authorize('pictures_manage');
+
+        if (Storage::exists("public/" . $picture->path)) Storage::delete("public/" . $picture->path);
 
         $picture->delete();
 

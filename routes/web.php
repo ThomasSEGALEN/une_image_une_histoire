@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PictureController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Picture;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
@@ -30,12 +31,10 @@ Route::get('/services', function () {
     //TODO
 })->name('services');
 
-Route::get('/gallery', function () {
-    return view('gallery');
-})->name('gallery');
+Route::get('/gallery', [PictureController::class, 'show'])->name('gallery');
 
 Route::get('/terms-of-use', function () {
-    //TODO
+    return Redirect::back();
 })->name('tos');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');

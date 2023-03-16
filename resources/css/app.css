@@ -4,9 +4,9 @@
 
 @font-face {
     font-family: "Subtitle";
-    src: url("/public/fonts/Karma-Light.ttf");
+    src: url("/public/assets/fonts/Karma-Light.ttf");
 }
 @font-face {
     font-family: "Text";
-    src: url("/public/fonts/Montserrat-Regular.ttf");
+    src: url("/public/assets/fonts/Montserrat-Regular.ttf");
 }

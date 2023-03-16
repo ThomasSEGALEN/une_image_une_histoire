@@ -1,10 +1,5 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
         <h1 class="flex justify-center text-xl font-bold text-dark">Mot de passe oublié</h1>
         <div class="mt-6 mb-4 text-sm text-gray-600">
             {{ __("Vous avez oublié votre mot de passe ? Indiquez-nous votre adresse
