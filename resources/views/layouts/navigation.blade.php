@@ -5,9 +5,7 @@
                 <a href="{{ route('home') }}">
                     <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                 </a>
-            </div>
-            <div class="flex">
-                <div class="hidden space-x-8 md:-my-px md:flex">
+                <div class="ml-12 hidden space-x-8 md:-my-px md:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Accueil') }}
                     </x-nav-link>

@@ -18,7 +18,7 @@
                 <img src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg" class="block w-full" alt="..." />
                 <div class="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                     <h5 class="text-xl">Dans quelques années, lorsque vous regarderez cette photo, vous sentirez le
-                        soleil d'aujourd'hui sur votre visage.l</h5>
+                        soleil d'aujourd'hui sur votre visage.</h5>
                 </div>
             </div>
             <div class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
@@ -63,7 +63,7 @@
         </button>
     </section>
 
-    <section class="my-6 text-gray-800">
+    <section class="my-6 text-gray-800" id="contact">
         <div class="p-12 flex flex-wrap">
             <div class="grow-0 shrink-0 basis-auto mb-6 md:mb-0 w-full md:w-6/12 px-3 lg:px-6">
                 <h2 class="text-3xl font-bold mb-6">Nous contacter</h2>
@@ -141,33 +141,4 @@
             </div>
         </div>
     </section>
-    {{--
-    <section class="my-12 text-gray-800 text-center">
-        <div class="p-12 mx-auto max-w-5xl">
-            <div class="flex flex-col rounded-lg shadow-lg p-12">
-                <h2 class="text-3xl font-bold mb-12">Nous contacter</h2>
-                <form method="POST" action="{{ route('contact') }}">
-                    @csrf
-                    <div class=" form-group mb-6">
-                        <x-text-input placeholder="Nom" id="name" class="block mt-1 w-full" type="text" name="name"
-                            required autocomplete="name" />
-                    </div>
-                    <div class="form-group mb-6">
-                        <x-text-input placeholder="Adresse e-mail" id="email" class="block mt-1 w-full" type="text"
-                            name="email" required autocomplete="email" />
-                    </div>
-                    <div class="form-group mb-6">
-                        <x-textarea placeholder="Message" id="message" class="block w-full mt-1" name="message"
-                            rows="5">
-                        </x-textarea>
-                    </div>
-                    <div class="w-full flex justify-end">
-                        <x-primary-button>
-                            {{ __('Envoyer') }}
-                        </x-primary-button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section> --}}
 </x-app-layout>

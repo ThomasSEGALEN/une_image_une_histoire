@@ -36,3 +36,9 @@
 </body>
 
 </html>
+
+<style>
+    ::selection {
+        background-color: #e6b41e81;
+    }
+</style>
