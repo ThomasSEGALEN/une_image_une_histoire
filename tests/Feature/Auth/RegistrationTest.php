@@ -14,18 +14,18 @@ class RegistrationTest extends TestCase
         $response->assertStatus(200);
     }
 
-    // public function test_new_users_can_register()
-    // {
-    //     $response = $this->post('/register', [
-    //         'lastname' => 'Test',
-    //         'firstname' => 'User',
-    //         'email' => 'test@mail.com',
-    //         'password' => 'password',
-    //         'password_confirmation' => 'password',
-    //     ]);
+    public function test_new_users_can_register()
+    {
+        $response = $this->post('/register', [
+            'lastname' => 'Test',
+            'firstname' => 'User',
+            'email' => 'test@mail.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
 
-    //     $this->assertAuthenticated();
+        $this->assertAuthenticated();
 
-    //     $response->assertRedirect(RouteServiceProvider::HOME);
-    // }
+        $response->assertRedirect(RouteServiceProvider::HOME);
+    }
 }
