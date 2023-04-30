@@ -25,7 +25,6 @@
 
 <style>
     ::selection {
-        color: black;
         background: bg-gold;
     }
 </style>
